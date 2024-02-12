@@ -33,16 +33,32 @@ class CountDown {
     //Check whether to return longDateName date name or not
     if (showLabel == false) {
       if (_daysUntil > 0) {
-        retVal += _daysUntil.toString() + " $spacer ";
+        if (!padding) {
+          retVal += _daysUntil.toString() + " $spacer ";
+        } else {
+          retVal += _daysUntil.toString().padLeft(2, '0') + " $spacer ";
+        }
       }
       if (_hoursUntil > 0) {
-        retVal += _hoursUntil.toString() + " $spacer ";
+        if (!padding) {
+          retVal += _hoursUntil.toString() + " $spacer ";
+        } else {
+          retVal += _hoursUntil.toString().padLeft(2, '0') + " $spacer ";
+        }
       }
       if (_minUntil > 0) {
-        retVal += _minUntil.toString() + " $spacer ";
+        if (!padding) {
+          retVal += _minUntil.toString() + " $spacer ";
+        } else {
+          retVal += _minUntil.toString().padLeft(2, '0') + " $spacer ";
+        }
       }
       if (_secUntil > 0) {
-        retVal += s;
+        if (!padding) {
+          retVal += s;
+        } else {
+          retVal += s.padLeft(2, '0');
+        }
       }
     } else {
       if (longDateName == false) {
