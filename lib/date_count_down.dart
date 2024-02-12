@@ -88,7 +88,7 @@ class _CountDownTextState extends State<CountDownText> {
         showLabel: widget.showLabel,
         collapsing: widget.collapsing,
         endingText: widget.endingText,
-        spacer: spacer
+        spacer: widget.spacer
       ),
       style: widget.style,
     );
