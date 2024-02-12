@@ -14,6 +14,7 @@ class CountDown {
     bool? showLabel,
     bool collapsing = false,
     String endingText = ' left',
+    String spacer = ':'
   }) {
     String retVal = "";
 
@@ -33,13 +34,13 @@ class CountDown {
     //Check whether to return longDateName date name or not
     if (showLabel == false) {
       if (_daysUntil > 0) {
-        retVal += _daysUntil.toString() + " : ";
+        retVal += _daysUntil.toString() + " $spacer ";
       }
       if (_hoursUntil > 0) {
-        retVal += _hoursUntil.toString() + " : ";
+        retVal += _hoursUntil.toString() + " $spacer ";
       }
       if (_minUntil > 0) {
-        retVal += _minUntil.toString() + " : ";
+        retVal += _minUntil.toString() + " $spacer ";
       }
       if (_secUntil > 0) {
         retVal += s;
