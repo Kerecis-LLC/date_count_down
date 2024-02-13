@@ -1,25 +1,11 @@
 class CountDown {
   String timeLeft(
-      DateTime due,
-      String finishedText,
-      String daysTextLong,
-      String hoursTextLong,
-      String minutesTextLong,
-      String secondsTextLong,
-      String daysTextShort,
-      String hoursTextShort,
-      String minutesTextShort,
-      String secondsTextShort,
-      {bool? longDateName,
-      bool? showLabel,
-      bool collapsing = false,
-      String endingText = ' left',
-      String spacer = ':',
-      bool padding = false}) {
-    String retVal = "";
-
+    DateTime due,
+    String finishedText, {
+    String spacer = ':',
+  }) {
+    List<int> values = [];
     Duration _timeUntilDue = due.difference(DateTime.now());
-
     int _daysUntil = _timeUntilDue.inDays;
     int _hoursUntil = _timeUntilDue.inHours - (_daysUntil * 24);
     int _minUntil = _timeUntilDue.inMinutes - (_daysUntil * 24 * 60) - (_hoursUntil * 60);
@@ -29,103 +15,13 @@ class CountDown {
     String s = _secUntil.toString().length <= 2
         ? _secUntil.toString()
         : _secUntil.toString().substring(_secUntil.toString().length - 2);
-
-    //Check whether to return longDateName date name or not
-    if (showLabel == false) {
-      if (_daysUntil > 0) {
-        if (!padding) {
-          retVal += _daysUntil.toString() + " $spacer ";
-        } else {
-          retVal += _daysUntil.toString().padLeft(2, '0') + " $spacer ";
-        }
-      }
-      if (_hoursUntil > 0) {
-        if (!padding) {
-          retVal += _hoursUntil.toString() + " $spacer ";
-        } else {
-          retVal += _hoursUntil.toString().padLeft(2, '0') + " $spacer ";
-        }
-      }
-      if (_minUntil > 0) {
-        if (!padding) {
-          retVal += _minUntil.toString() + " $spacer ";
-        } else {
-          retVal += _minUntil.toString().padLeft(2, '0') + " $spacer ";
-        }
-      }
-      if (_secUntil > 0) {
-        if (!padding) {
-          retVal += s;
-        } else {
-          retVal += s.padLeft(2, '0');
-        }
-      }
-    } else {
-      if (longDateName == false) {
-        if (_daysUntil > 0) {
-          if (!padding) {
-            retVal += _daysUntil.toString() + daysTextShort;
-          } else {
-            retVal += _daysUntil.toString().padLeft(2, '0') + daysTextShort;
-          }
-        }
-        if (_hoursUntil > 0 && (!collapsing || _daysUntil <= 0)) {
-          if (!padding) {
-            retVal += _hoursUntil.toString() + hoursTextShort;
-          } else {
-            retVal += _hoursUntil.toString().padLeft(2, '0') + hoursTextShort;
-          }
-        }
-        if (_minUntil > 0 && (!collapsing || _hoursUntil <= 0)) {
-          if (!padding) {
-            retVal += _minUntil.toString() + minutesTextShort;
-          } else {
-            retVal += _minUntil.toString().padLeft(2, '0') + minutesTextShort;
-          }
-        }
-        if (_secUntil > 0 && (!collapsing || _minUntil <= 0)) {
-          if (!padding) {
-            retVal += s + secondsTextShort;
-          } else {
-            retVal += s.padLeft(2, '0') + secondsTextShort;
-          }
-        }
-      } else {
-        if (_daysUntil > 0) {
-          if (!padding) {
-            retVal += _daysUntil.toString() + daysTextLong;
-          } else {
-            retVal += _daysUntil.toString().padLeft(2, '0') + daysTextLong;
-          }
-        }
-        if (_hoursUntil > 0 && (!collapsing || _daysUntil <= 0)) {
-          if (!padding) {
-            retVal += _hoursUntil.toString() + hoursTextLong;
-          } else {
-            retVal += _hoursUntil.toString().padLeft(2, '0') + hoursTextLong;
-          }
-        }
-        if (_minUntil > 0 && (!collapsing || _hoursUntil <= 0)) {
-          if (!padding) {
-            retVal += _minUntil.toString() + minutesTextLong;
-          } else {
-            retVal += _minUntil.toString().padLeft(2, '0') + minutesTextLong;
-          }
-        }
-        if (_secUntil > 0 && (!collapsing || _minUntil <= 0)) {
-          if (!padding) {
-            retVal += s + secondsTextLong;
-          } else {
-            retVal += s.padLeft(2, '0') + secondsTextLong;
-          }
-        }
-      }
-    }
+    values.add(_daysUntil);
+    values.add(_hoursUntil);
+    values.add(_minUntil);
+    values.add(int.parse(s));
     if (_timeUntilDue.inSeconds < 1) {
-      retVal = finishedText;
-    } else if (collapsing) {
-      retVal += endingText;
+      return finishedText;
     }
-    return retVal;
+    return values.map((v) => v.toString().padLeft(2, '0')).join(spacer);
   }
 }
